@@ -1,0 +1,70 @@
+export const Months = Object.freeze({
+  1: "Jan",
+  2: "Feb",
+  3: "Mar",
+  4: "Apr",
+  5: "May",
+  6: "Jun",
+  7: "Jul",
+  8: "Aug",
+  9: "Sep",
+  10: "Oct",
+  11: "Nov",
+  12: "Dec",
+});
+export const HeadersObject = Object.freeze({
+  date: {
+    displayName: "Date",
+    default: true,
+    textAlign: "left",
+    headAlign: "left",
+  },
+  app_id: {
+    displayName: "App",
+    default: true,
+    textAlign: "left",
+    headAlign: "left",
+  },
+  requests: {
+    displayName: "Requests",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  responses: {
+    displayName: "Responses",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  impressions: {
+    displayName: "Impressions",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  clicks: {
+    displayName: "Clicks",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  revenue: {
+    displayName: "Revenue",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  fillRate: {
+    displayName: "Fill Rate",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+  Ctr: {
+    displayName: "CTR",
+    default: true,
+    textAlign: "center",
+    headAlign: "center",
+  },
+});
