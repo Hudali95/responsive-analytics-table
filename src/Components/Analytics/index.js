@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Months, HeadersObject } from "../../Assets/constants";
+import { FaFilter } from "react-icons/fa";
+import GetFilterBody from "../SearchInput";
 
 function Index() {
   const [data, setData] = useState([
@@ -139,6 +141,13 @@ function Index() {
       revenue: 212.8627259755705,
     },
   ]);
+  const [showFilter, setShowFilter] = useState(false);
+  const [filterPosition, setFilterPosition] = useState({
+    left: 0,
+    top: 0,
+    active_id: "",
+  });
+
   const [apps, setApps] = useState([
     { app_id: "123456", app_name: "Panda Draw" },
     { app_id: "789652", app_name: "Number Ninja" },
@@ -252,133 +261,155 @@ function Index() {
         );
     }
   };
+  const applyFilter = (filter) => {
+    setData([...data.filter((el) => el["app_id"] == filter)]);
+    console.log("filter", filter);
+  };
   return (
-    <div className="content-layout analytics-layout">
-      <h2>Analytics</h2>
-      <div className="analytics-header-bar">
-        <button
-          className="date-picker options-button border rounded "
-          onClick={() => console.log("clicked")}
-        >
-          Date Picker
-        </button>
-        <button className="settings-button options-button border rounded">
-          Setting button
-        </button>
-      </div>
-      <div className="analytics-options-bar">
-        <div className="columns-selector-wrapper border rounded">
-          <div className="columns-selector-header">
-            <h3>Dimensions and Metrics</h3>
-          </div>
-          <div
-            className="columns-selector-body"
-            onDrop={handleDrop}
-            onDragOver={(e) => {
-              e.preventDefault();
-            }}
+    <>
+      <div className="content-layout analytics-layout">
+        <h2>Analytics</h2>
+        <div className="analytics-header-bar">
+          <button
+            className="date-picker options-button border rounded "
+            onClick={() => console.log("clicked")}
           >
-            {/* {Object.keys(headerDeatils).map((key, index) => (
-              <div
-                className="header-option pointer "
-                onClick={() =>
-                  headers.includes(key)
-                    ? setHeaders(headers.filter((el) => el !== key))
-                    : setHeaders([...headers, key])
-                }
-                onDragStart={(e) => handleDragStart(e, headers.indexOf(key))}
-                data-index={headers.indexOf(key)}
-                onDragEnd={handleDragEnd}
-                draggable
-              >
-                {headers.includes(key) && (
-                  <div className="header-option-indicator"></div>
-                )}
-
-                <div className="header-option-title border rounded ">
-                  {headerDeatils[key].displayName}
-                </div>
-              </div>
-            ))} */}
-            {headers.map((key, index) => (
-              <div
-                className="header-option pointer border rounded "
-                onClick={() =>
-                  headers.includes(key)
-                    ? setHeaders(headers.filter((el) => el !== key))
-                    : setHeaders([...headers, key])
-                }
-                onDragStart={(e) => handleDragStart(e, index)}
-                data-index={index}
-                onDragEnd={handleDragEnd}
-                draggable
-              >
-                {headers.includes(key) && (
-                  <div className="header-option-indicator"></div>
-                )}
-
-                <div className="header-option-title  " data-index={index}>
-                  {headerDeatils[key].displayName}
-                </div>
-              </div>
-            ))}
-            {Object.keys(HeadersObject)
-              .filter((el) => !headers.includes(el))
-              .map((el) => (
+            Date Picker
+          </button>
+          <button className="settings-button options-button border rounded">
+            Setting button
+          </button>
+        </div>
+        <div className="analytics-options-bar">
+          <div className="columns-selector-wrapper border rounded">
+            <div className="columns-selector-header">
+              <h3>Dimensions and Metrics</h3>
+            </div>
+            <div
+              className="columns-selector-body"
+              onDrop={handleDrop}
+              onDragOver={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {headers.map((key, index) => (
                 <div
-                  className="header-option pointer border rounded"
-                  draggable={false}
+                  className="header-option pointer border rounded "
                   onClick={() =>
-                    headers.includes(el)
-                      ? setHeaders(headers.filter((item) => el !== item))
-                      : setHeaders([...headers, el])
+                    headers.includes(key)
+                      ? setHeaders(headers.filter((el) => el !== key))
+                      : setHeaders([...headers, key])
                   }
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  data-index={index}
+                  onDragEnd={handleDragEnd}
+                  draggable
                 >
-                  <div className="header-option-title   ">
-                    {headerDeatils[el].displayName}
+                  {headers.includes(key) && (
+                    <div className="header-option-indicator"></div>
+                  )}
+
+                  <div className="header-option-title  " data-index={index}>
+                    {headerDeatils[key].displayName}
                   </div>
                 </div>
               ))}
+              {Object.keys(HeadersObject)
+                .filter((el) => !headers.includes(el))
+                .map((el) => (
+                  <div
+                    className="header-option pointer border rounded"
+                    draggable={false}
+                    onClick={() =>
+                      headers.includes(el)
+                        ? setHeaders(headers.filter((item) => el !== item))
+                        : setHeaders([...headers, el])
+                    }
+                  >
+                    <div className="header-option-title">
+                      {headerDeatils[el].displayName}
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="analytics-main-content">
-        <div className="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                {headers.map((key) => (
-                  <th style={{ textAlign: HeadersObject[key].headAlign }}>
-                    {HeadersObject[key].displayName}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {headers.map((key, index) => (
-                  <td
-                    className="header-total"
-                    style={{ textAlign: HeadersObject[key].textAlign }}
-                  >
-                    {getTotalValue(key, index)}
-                  </td>
-                ))}
-              </tr>
-              {data.map((row, k) => (
+        <div className="analytics-main-content">
+          <div className="table-wrapper">
+            <table>
+              <thead>
                 <tr>
                   {headers.map((key) => (
-                    <td style={{ textAlign: HeadersObject[key].textAlign }}>
-                      {formatData(key, row[key], k)}
+                    <th
+                      style={{
+                        textAlign: HeadersObject[key].headAlign,
+                      }}
+                    >
+                      <div
+                        className="pointer"
+                        onClick={(e) => {
+                          setFilterPosition({
+                            left: e.clientX - 70,
+                            top: e.clientY + 20,
+                            active_id: key,
+                          });
+                          setShowFilter(true);
+                        }}
+                      >
+                        <FaFilter />
+                      </div>
+
+                      {HeadersObject[key].displayName}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {headers.map((key, index) => (
+                    <td
+                      className="header-total"
+                      style={{ textAlign: HeadersObject[key].textAlign }}
+                    >
+                      {getTotalValue(key, index)}
                     </td>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+                {data.map((row, k) => (
+                  <tr>
+                    {headers.map((key) => (
+                      <td style={{ textAlign: HeadersObject[key].textAlign }}>
+                        {formatData(key, row[key], k)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+      {showFilter && (
+        <div className="overlay" onClick={() => setShowFilter(false)}>
+          <div
+            className="filter border rounded"
+            style={{
+              left: filterPosition.left,
+              top: filterPosition.top,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="filter-header">Filter</div>
+            <GetFilterBody
+              activeId={filterPosition.active_id}
+              data={data}
+              apps={apps}
+              applyFilter={applyFilter}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

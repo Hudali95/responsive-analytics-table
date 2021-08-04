@@ -7,10 +7,17 @@
 
 button {
   cursor: pointer;
+  border-radius: 4px;
 }
 .pointer {
   cursor: pointer;
 }
 .dragging {
   opacity: 0.5;
+}
+.primry-button {
+  background-color: #116fed;
+  border: 1px solid #116fed;
+  padding: 5px;
+  color: #fff;
 }

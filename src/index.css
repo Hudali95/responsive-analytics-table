@@ -56,25 +56,28 @@ code {
   padding: 20px 10px 20px 10px;
   margin: 10px 0px 10px 0px;
   min-height: 250px;
+  border: 1px solid #116fed;
 }
 .columns-selector-body {
   display: flex;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 .header-option {
   height: 30px;
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin: 10px;
+  min-width: 150px;
 }
 .header-option-indicator {
   width: 5px;
   background-color: #116fed;
   height: 100%;
+  border-radius: 4px 0px 0px 4px;
 }
 .header-option-title {
   height: 100%;
-
   padding: 0px 10px 0px 10px;
   display: flex;
   align-items: center;
@@ -101,4 +104,38 @@ th {
 .header-total {
   font-size: 28px;
   font-weight: 300;
+}
+.filter {
+  position: fixed;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 2px 2px 5px 0px #70707046;
+}
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.63);
+}
+.query-input {
+  height: 32px;
+  margin: 10px;
+  width: 250px;
+}
+input.query-input {
+  padding: 5px;
+}
+.dropdown-item {
+  padding: 10px;
+}
+.filter-footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.range-indicators {
+  display: flex;
+  justify-content: space-between;
 }
