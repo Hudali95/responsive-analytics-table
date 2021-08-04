@@ -42,9 +42,10 @@ function Index(props) {
             <div
               className="header-option pointer border rounded "
               onClick={() =>
-                headers.includes(key)
+                HeadersObject[key].moveable &&
+                (headers.includes(key)
                   ? setHeaders(headers.filter((el) => el !== key))
-                  : setHeaders([...headers, key])
+                  : setHeaders([...headers, key]))
               }
               onDragStart={(e) => handleDragStart(e, index)}
               data-index={index}
@@ -67,9 +68,10 @@ function Index(props) {
                 className="header-option pointer border rounded"
                 draggable={false}
                 onClick={() =>
-                  headers.includes(el)
+                  HeadersObject[el].moveable &&
+                  (headers.includes(el)
                     ? setHeaders(headers.filter((item) => el !== item))
-                    : setHeaders([...headers, el])
+                    : setHeaders([...headers, el]))
                 }
               >
                 <div className="header-option-title">

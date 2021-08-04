@@ -1,16 +1,16 @@
 export const Months = Object.freeze({
-  1: "Jan",
-  2: "Feb",
-  3: "Mar",
-  4: "Apr",
-  5: "May",
-  6: "Jun",
-  7: "Jul",
-  8: "Aug",
-  9: "Sep",
-  10: "Oct",
-  11: "Nov",
-  12: "Dec",
+  0: "Jan",
+  1: "Feb",
+  2: "Mar",
+  3: "Apr",
+  4: "May",
+  5: "Jun",
+  6: "Jul",
+  7: "Aug",
+  8: "Sep",
+  9: "Oct",
+  10: "Nov",
+  11: "Dec",
 });
 export const HeadersObject = Object.freeze({
   date: {
@@ -19,6 +19,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "left",
     headAlign: "left",
     type: "string",
+    filter: false,
+    moveable: false,
   },
   app_id: {
     displayName: "App",
@@ -26,6 +28,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "left",
     headAlign: "left",
     type: "string",
+    filter: true,
+    moveable: false,
   },
   requests: {
     displayName: "Requests",
@@ -33,6 +37,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: true,
+    moveable: true,
   },
   responses: {
     displayName: "Responses",
@@ -40,6 +46,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: true,
+    moveable: true,
   },
   impressions: {
     displayName: "Impressions",
@@ -47,6 +55,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: true,
+    moveable: true,
   },
   clicks: {
     displayName: "Clicks",
@@ -54,6 +64,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: true,
+    moveable: true,
   },
   revenue: {
     displayName: "Revenue",
@@ -61,6 +73,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: true,
+    moveable: true,
   },
   fillRate: {
     displayName: "Fill Rate",
@@ -68,6 +82,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: false,
+    moveable: true,
   },
   Ctr: {
     displayName: "CTR",
@@ -75,5 +91,8 @@ export const HeadersObject = Object.freeze({
     textAlign: "center",
     headAlign: "center",
     type: "number",
+    filter: false,
+    moveable: true,
   },
 });
+export const BASE_URL = "http://go-dev.greedygame.com/v3/dummy/";

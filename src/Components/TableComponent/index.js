@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Months, HeadersObject } from "../../Assets/constants";
 import { FaFilter } from "react-icons/fa";
@@ -10,19 +10,16 @@ function Index({ source, ...props }) {
         return props.apps.filter((el) => el.app_id === paramData)[0].app_name;
       case "date":
         let date = new Date(paramData);
-
         return `${date.getDate()} ${
           Months[date.getMonth()]
         } ${date.getFullYear()}`;
       case "revenue":
         return `$${paramData.toFixed(2)}`;
       case "fillRate": {
-        let current = source[index];
-        return ((current.requests / current.responses) * 100).toFixed(2) + "%";
+        return paramData + "%";
       }
       case "Ctr": {
-        let current = source[index];
-        return ((current.clicks / current.impressions) * 100).toFixed(2) + "%";
+        return paramData + "%";
       }
       default:
         return formatNumberUs(paramData);
@@ -76,6 +73,7 @@ function Index({ source, ...props }) {
         );
     }
   };
+
   return (
     <table>
       <thead>
@@ -88,19 +86,22 @@ function Index({ source, ...props }) {
                   justifyContent: HeadersObject[key].headAlign,
                 }}
               >
-                <div
-                  className="pointer filter-font"
-                  onClick={(e) => {
-                    props.setFilterPosition({
-                      left: e.clientX - 70,
-                      top: e.clientY + 20,
-                      active_id: key,
-                    });
-                    props.setShowFilter(true);
-                  }}
-                >
-                  <FaFilter />
-                </div>
+                {HeadersObject[key].filter && (
+                  <div
+                    className="pointer filter-font"
+                    onClick={(e) => {
+                      props.setFilterPosition({
+                        left: e.clientX - 70,
+                        top: e.clientY + 20,
+                        active_id: key,
+                      });
+                      props.setShowFilter(true);
+                    }}
+                  >
+                    <FaFilter />
+                  </div>
+                )}
+
                 <div>{HeadersObject[key].displayName}</div>
               </div>
             </th>

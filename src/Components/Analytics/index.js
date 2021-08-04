@@ -1,19 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { HeadersObject } from "../../Assets/constants";
 
-import GetFilterBody from "../SearchInput";
+import FilterComponent from "../FilterComponent";
 import TableComponent from "../TableComponent";
+import QueryInput from "../QueryInput";
 import { connect } from "react-redux";
 
 import OptionsContainer from "../OptionsContainer";
 import { FaCalendarAlt } from "react-icons/fa";
 import { GoSettings } from "react-icons/go";
 
+import { getData, getApps } from "../../Redux/actions";
+
 function Index(props) {
   const [data, setData] = useState(props.data);
   const [showOptions, setShowOptions] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-  const inputRef = useRef();
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dateRange, setDateRange] = useState({
+    from: "",
+    to: "",
+  });
   const [filterPosition, setFilterPosition] = useState({
     left: 0,
     top: 0,
@@ -30,10 +37,21 @@ function Index(props) {
         ),
       ]);
     }
+    setShowFilter(false);
   };
-  const datepickerClick = () => {
-    // inputRef.current.click();
+
+  const setShowFilterCb = (value) => {
+    setShowFilter(value);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.getData(dateRange);
+    setShowDatePicker(false);
+  };
+  useEffect(() => {
+    props.getApps();
+    setData(props.data);
+  }, [props.data]);
   return (
     <>
       <div className="content-layout analytics-layout">
@@ -41,20 +59,31 @@ function Index(props) {
         <div className="analytics-header-bar">
           <button
             className="date-picker options-button border rounded "
-            onClick={() => datepickerClick()}
+            onClick={() => setShowDatePicker(true)}
           >
-            {/* <input type="date" placeholder="date" ref={inputRef}></input> */}
             <span className="option-icon">
               <FaCalendarAlt />
             </span>
             Date Picker
           </button>
+          {showDatePicker && (
+            <QueryInput
+              setStartDateRange={(value) =>
+                setDateRange({ ...dateRange, from: value })
+              }
+              setEndDateRange={(value) =>
+                setDateRange({ ...dateRange, to: value })
+              }
+              setShowDatePicker={(value) => setShowDatePicker(value)}
+              handleSubmit={handleSubmit}
+            />
+          )}
           <button
             className="settings-button  options-button border rounded"
             onClick={() => setShowOptions(true)}
           >
             <span className="option-icon">
-              <GoSettings />
+              <GoSettings handleSubmit={handleSubmit} />
             </span>
             Setting button
           </button>
@@ -73,22 +102,11 @@ function Index(props) {
         </div>
       </div>
       {showFilter && (
-        <div className="overlay" onClick={() => setShowFilter(false)}>
-          <div
-            className="filter border rounded"
-            style={{
-              left: filterPosition.left,
-              top: filterPosition.top,
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="filter-header">Filter</div>
-            <GetFilterBody
-              activeId={filterPosition.active_id}
-              applyFilter={applyFilter}
-            />
-          </div>
-        </div>
+        <FilterComponent
+          filterPosition={filterPosition}
+          applyFilter={applyFilter}
+          setShowFilter={setShowFilterCb}
+        />
       )}
     </>
   );
@@ -101,4 +119,4 @@ const mapStatesToProps = (state) => {
     apps: state.apps,
   };
 };
-export default connect(mapStatesToProps, null)(Index);
+export default connect(mapStatesToProps, { getData, getApps })(Index);

@@ -29,3 +29,15 @@ button {
   background-color: #fff;
   margin: 5px;
 }
+input[type="date"] {
+  border: 1px solid #eaeaea;
+  padding: 6px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+label {
+  margin-bottom: 10px;
+}
+.w-100 {
+  width: 100%;
+}

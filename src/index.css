@@ -40,6 +40,7 @@ code {
   padding: 40px 40px 0px 10px;
 }
 .analytics-header-bar {
+  position: relative;
   height: 46px;
   width: 100%;
   display: flex;
@@ -115,7 +116,7 @@ th {
   box-shadow: 2px 2px 5px 0px #70707046;
 }
 .overlay {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
@@ -137,6 +138,7 @@ input.query-input {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  margin-top: 10px;
 }
 .range-indicators {
   display: flex;
@@ -161,4 +163,17 @@ input.query-input {
 .option-icon {
   color: #116fed;
   margin-right: 10px;
+}
+.inputs-wrapper {
+  position: absolute;
+  top: 40px;
+  left: 100;
+  min-height: 200px;
+  width: 300px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 2px 2px 5px 0px #70707046;
+}
+.label-container {
+  margin: 10px 0px 10px 0px;
 }
