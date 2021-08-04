@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Months, HeadersObject } from "../../Assets/constants";
+import { connect } from "react-redux";
+import { HeadersObject } from "../../Assets/constants";
 
 const GetFilterBody = ({ activeId, data, apps, ...props }) => {
   const [query, setQuery] = useState("");
@@ -47,12 +48,13 @@ const GetFilterBody = ({ activeId, data, apps, ...props }) => {
       </div>
       <div className="filter-footer">
         <button
-          className="primry-button"
+          className="primary-button"
           onClick={() =>
             props.applyFilter(
               apps.filter((el) => el["app_name"] === query).length > 0
                 ? apps.filter((el) => el["app_name"] === query)[0]["app_id"]
-                : ""
+                : "",
+              activeId
             )
           }
         >
@@ -63,30 +65,29 @@ const GetFilterBody = ({ activeId, data, apps, ...props }) => {
   );
 };
 const RangeSelector = ({ activeId, data, apps, ...props }) => {
-  const [values, setValues] = useState({
-    start: Math.min(...data.map((el) => el[activeId])),
-    end: Math.max(...data.map((el) => el[activeId])),
+  const [values] = useState({
+    start: Math.floor(Math.min(...data.map((el) => el[activeId]))),
+    end: Math.floor(Math.max(...data.map((el) => el[activeId]))),
   });
+  const [endIndicator, setIndicator] = useState(values.end);
+  const [filter, setFilter] = useState("");
   const handleRangeChange = (e) => {
-    console.log(e.target.value);
+    let diff = values.end - values.start;
+    let currentValue = Math.floor((e.target.value * diff) / 100) + values.start;
+    setIndicator(currentValue);
+    setFilter({ ...values, end: currentValue });
   };
   return (
     <div>
       <input type="range" onChange={handleRangeChange}></input>
       <div className="range-indicators">
         <div>{values.start}</div>
-        <div>{values.end}</div>
+        <div>{endIndicator}</div>
       </div>
       <div className="filter-footer">
         <button
-          className="primry-button"
-          //   onClick={() =>
-          //     props.applyFilter(
-          //       apps.filter((el) => el["app_name"] === query).length > 0
-          //         ? apps.filter((el) => el["app_name"] === query)[0]["app_id"]
-          //         : ""
-          //     )
-          //   }
+          className="primary-button"
+          onClick={() => props.applyFilter(filter, activeId)}
         >
           Apply
         </button>
@@ -101,7 +102,13 @@ const Index = (props) => {
     default:
       return RangeSelector(props);
   }
-  return;
 };
 
-export default Index;
+const mapStatesToProps = (state) => {
+  return {
+    data: state.responseData,
+    headers: state.headers,
+    ...state,
+  };
+};
+export default connect(mapStatesToProps, null)(Index);

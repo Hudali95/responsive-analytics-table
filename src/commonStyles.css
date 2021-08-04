@@ -15,9 +15,17 @@ button {
 .dragging {
   opacity: 0.5;
 }
-.primry-button {
+.primary-button {
   background-color: #116fed;
   border: 1px solid #116fed;
   padding: 5px;
   color: #fff;
+  margin: 5px;
+}
+.secondary-button {
+  border: 1px solid #116fed;
+  padding: 5px;
+  color: #116fed;
+  background-color: #fff;
+  margin: 5px;
 }

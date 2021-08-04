@@ -55,8 +55,9 @@ code {
 .columns-selector-wrapper {
   padding: 20px 10px 20px 10px;
   margin: 10px 0px 10px 0px;
-  min-height: 250px;
+  min-height: 200px;
   border: 1px solid #116fed;
+  position: relative;
 }
 .columns-selector-body {
   display: flex;
@@ -84,6 +85,7 @@ code {
 }
 .table-wrapper {
   width: 100%;
+  margin-top: 28px;
   height: 500px;
 }
 table {
@@ -138,4 +140,18 @@ input.query-input {
 .range-indicators {
   display: flex;
   justify-content: space-between;
+}
+.header-cell {
+  display: flex;
+
+  height: 32px;
+  justify-content: center;
+}
+.header-cell div {
+  height: 100%;
+  justify-content: center;
+}
+.filter-font {
+  font-size: 13px;
+  margin-right: 10px;
 }

@@ -2,21 +2,25 @@ import React from "react";
 import Analytics from "./Components/Analytics";
 import Dashboard from "./Components/Homepage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import store from "./Redux/store";
+import { Provider } from "react-redux";
 import "./commonStyles.css";
 import "./index.css";
 
 function App() {
   return (
     <Router>
-      <div className="app-layout">
-        <div className="app-side-bar"></div>
-        <div className="app-middle-container">
-          <Switch>
-            <Route path="/" exact component={Analytics} />
-            <Route path="/analytics" exact component={Analytics} />
-          </Switch>
+      <Provider store={store}>
+        <div className="app-layout">
+          <div className="app-side-bar"></div>
+          <div className="app-middle-container">
+            <Switch>
+              <Route path="/" exact component={Dashboard} />
+              <Route path="/analytics" exact component={Analytics} />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </Provider>
     </Router>
   );
 }
