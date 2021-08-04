@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { HeadersObject } from "../../Assets/constants";
 
 import GetFilterBody from "../SearchInput";
@@ -6,11 +6,14 @@ import TableComponent from "../TableComponent";
 import { connect } from "react-redux";
 
 import OptionsContainer from "../OptionsContainer";
+import { FaCalendarAlt } from "react-icons/fa";
+import { GoSettings } from "react-icons/go";
 
 function Index(props) {
   const [data, setData] = useState(props.data);
   const [showOptions, setShowOptions] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+  const inputRef = useRef();
   const [filterPosition, setFilterPosition] = useState({
     left: 0,
     top: 0,
@@ -28,7 +31,9 @@ function Index(props) {
       ]);
     }
   };
-
+  const datepickerClick = () => {
+    // inputRef.current.click();
+  };
   return (
     <>
       <div className="content-layout analytics-layout">
@@ -36,14 +41,21 @@ function Index(props) {
         <div className="analytics-header-bar">
           <button
             className="date-picker options-button border rounded "
-            onClick={() => console.log("clicked")}
+            onClick={() => datepickerClick()}
           >
+            {/* <input type="date" placeholder="date" ref={inputRef}></input> */}
+            <span className="option-icon">
+              <FaCalendarAlt />
+            </span>
             Date Picker
           </button>
           <button
-            className="settings-button secondary-button options-button border rounded"
+            className="settings-button  options-button border rounded"
             onClick={() => setShowOptions(true)}
           >
+            <span className="option-icon">
+              <GoSettings />
+            </span>
             Setting button
           </button>
         </div>

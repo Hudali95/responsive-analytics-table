@@ -77,9 +77,15 @@ const RangeSelector = ({ activeId, data, apps, ...props }) => {
     setIndicator(currentValue);
     setFilter({ ...values, end: currentValue });
   };
+  let inputCurrentValue =
+    ((endIndicator - values.start) * 100) / (values.end - values.start);
   return (
     <div>
-      <input type="range" onChange={handleRangeChange}></input>
+      <input
+        type="range"
+        onChange={handleRangeChange}
+        value={inputCurrentValue}
+      ></input>
       <div className="range-indicators">
         <div>{values.start}</div>
         <div>{endIndicator}</div>
