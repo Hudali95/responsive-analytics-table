@@ -7,21 +7,34 @@ export const applyHeaderFilters = (arr) => {
     payload: arr,
   };
 };
+export const getCallFailed = (value) => {
+  return {
+    type: "GET_CALL_FAILED",
+    payload: value,
+  };
+};
+
 export const getData = (query) => {
   return async (dispatch) => {
+    dispatch(getCallFailed(false));
     let url = `${BASE_URL}report?startDate=${query.from}&endDate=${query.to}`;
-    let result = await getCall(url);
-
-    dispatch({
-      type: "GET_DATA_SUCCESS",
-      payload: await formatData(result),
-    });
+    try {
+      let result = await getCall(url);
+      dispatch({
+        type: "GET_DATA_SUCCESS",
+        payload: await formatData(result),
+      });
+    } catch {
+      dispatch(getCallFailed(true));
+    }
   };
 };
 export const getApps = (query) => {
   return async (dispatch) => {
     let url = `${BASE_URL}apps`;
+
     let result = await getCall(url);
+
     dispatch({
       type: "GET_APPS_SUCCESS",
       payload: result,

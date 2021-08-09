@@ -177,3 +177,29 @@ input.query-input {
 .label-container {
   margin: 10px 0px 10px 0px;
 }
+.no-results-container {
+  height: 100%;
+  width: 100%;
+  background-color: #f2f2f2;
+  color: #1d1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.no-results-container img {
+  margin-right: 20px;
+}
+.suggestion-span {
+  color: #b9b9b9;
+}
+/* homepage */
+.homepage-container {
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.homepage-container a {
+  margin: 10px;
+}

@@ -10,6 +10,7 @@ const initialState = {
     "Ctr",
   ],
   apps: [],
+  fetchFailed: false,
 };
 
 function login(state = initialState, action) {
@@ -23,6 +24,11 @@ function login(state = initialState, action) {
       return {
         ...state,
         responseData: action.payload,
+      };
+    case "GET_CALL_FAILED":
+      return {
+        ...state,
+        fetchFailed: action.payload,
       };
     case "GET_APPS_SUCCESS":
       return {

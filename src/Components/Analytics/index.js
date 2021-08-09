@@ -7,6 +7,7 @@ import QueryInput from "../QueryInput";
 import { connect } from "react-redux";
 
 import OptionsContainer from "../OptionsContainer";
+import NoDataSVG from "../../Assets/undraw_no_data_qbuo.svg";
 import { FaCalendarAlt } from "react-icons/fa";
 import { GoSettings } from "react-icons/go";
 
@@ -52,6 +53,7 @@ function Index(props) {
     props.getApps();
     setData(props.data);
   }, [props.data]);
+
   return (
     <>
       <div className="content-layout analytics-layout">
@@ -66,6 +68,7 @@ function Index(props) {
             </span>
             Date Picker
           </button>
+
           {showDatePicker && (
             <QueryInput
               setStartDateRange={(value) =>
@@ -93,11 +96,31 @@ function Index(props) {
         )}
         <div className="analytics-main-content">
           <div className="table-wrapper">
-            <TableComponent
-              setFilterPosition={setFilterPosition}
-              setShowFilter={setShowFilter}
-              source={data}
-            />
+            {data.length > 0 && !props.getCallFailed ? (
+              <TableComponent
+                setFilterPosition={setFilterPosition}
+                setShowFilter={setShowFilter}
+                source={data}
+              />
+            ) : (
+              <div className="no-results-container rounded">
+                <img alt="No data to display" src={NoDataSVG}></img>
+                <div>
+                  {props.getCallFailed ? (
+                    <>
+                      <h3>Hey! Something's off!</h3>
+                      <h3>We couldn't display the given data try</h3>
+                    </>
+                  ) : (
+                    <h3>No Data to display</h3>
+                  )}
+                  <br />
+                  <span className="suggestion-span">
+                    try changing your filters or selecting a different date
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -117,6 +140,7 @@ const mapStatesToProps = (state) => {
     data: state.responseData,
     headers: state.headers,
     apps: state.apps,
+    getCallFailed: state.fetchFailed,
   };
 };
 export default connect(mapStatesToProps, { getData, getApps })(Index);
