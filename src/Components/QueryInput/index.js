@@ -8,7 +8,7 @@ function index(props) {
     >
       <div className="w-100">
         <div className="label-container w-100">
-          <label for="from">From Date</label>
+          <label htmlFor="from">From Date</label>
         </div>
         <input
           type="date"
@@ -22,7 +22,7 @@ function index(props) {
       </div>
       <div className="w-100">
         <div className="label-container w-100">
-          <label for="to">To Date</label>
+          <label htmlFor="to">To Date</label>
         </div>
 
         <input

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Months, HeadersObject } from "../../Assets/constants";
 import { FaFilter } from "react-icons/fa";
@@ -78,9 +78,10 @@ function Index({ source, ...props }) {
     <table>
       <thead>
         <tr>
-          {props.headers.map((key) => (
+          {props.headers.map((key, index) => (
             <th>
               <div
+                key={index}
                 className="header-cell"
                 style={{
                   justifyContent: HeadersObject[key].headAlign,
@@ -112,6 +113,7 @@ function Index({ source, ...props }) {
         <tr>
           {props.headers.map((key, index) => (
             <td
+              key={index}
               className="header-total"
               style={{ textAlign: HeadersObject[key].textAlign }}
             >
@@ -121,8 +123,11 @@ function Index({ source, ...props }) {
         </tr>
         {source.map((row, k) => (
           <tr>
-            {props.headers.map((key) => (
-              <td style={{ textAlign: HeadersObject[key].textAlign }}>
+            {props.headers.map((key, index) => (
+              <td
+                key={index}
+                style={{ textAlign: HeadersObject[key].textAlign }}
+              >
                 {formatData(key, row[key], k)}
               </td>
             ))}

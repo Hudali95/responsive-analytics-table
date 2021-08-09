@@ -40,6 +40,7 @@ function Index(props) {
         >
           {headers.map((key, index) => (
             <div
+              key={index}
               className="header-option pointer border rounded "
               onClick={() =>
                 HeadersObject[key].moveable &&
@@ -63,8 +64,9 @@ function Index(props) {
           ))}
           {Object.keys(HeadersObject)
             .filter((el) => !headers.includes(el))
-            .map((el) => (
+            .map((el, index) => (
               <div
+                key={index}
                 className="header-option pointer border rounded"
                 draggable={false}
                 onClick={() =>
