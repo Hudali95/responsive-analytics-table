@@ -167,6 +167,7 @@ input.query-input {
 .inputs-wrapper {
   position: absolute;
   top: 40px;
+  z-index: 999;
   left: 100;
   min-height: 200px;
   width: 300px;
